@@ -126,17 +126,14 @@ let Game = class {
 
                 previousCardSelected.resetCard();
                 card.resetCard();
-                this.stars -= 1;
-                console.log(this.stars);
-                // reduce stars when missed
-                $("ul.stars li i.fa.fa-star:last").addClass("fa-star-o");
-                $("ul.stars li i.fa.fa-star:last").removeClass("fa-star");
-                if (this.stars === 0) {
-                    //end game and restart!
-                    this.gameOver();
-
+                if(this.moves % 8 === 0){                    
+                    // reduce stars when perfomance is not good
+                    this.stars -= 1;
                 }
-
+                if (this.stars > 0){
+                    $("ul.stars li i.fa.fa-star:last").addClass("fa-star-o");
+                    $("ul.stars li i.fa.fa-star:last").removeClass("fa-star");                
+                }
             }
             previousCardSelected = null;
 
