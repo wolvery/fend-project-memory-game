@@ -66,10 +66,29 @@ h1 {
 }
 
 .deck .card.open {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
     transform: rotateY(0);
     background: #02b3e4;
     cursor: default;
 }
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(0, -1px, 0);
+      }
+      
+      20%, 80% {
+        transform: translate3d(0, 2px, 0);
+      }
+    
+      30%, 50%, 70% {
+        transform: translate3d(0, -4px, 0);
+      }
+    
+      40%, 60% {
+        transform: translate3d(0, 4px, 0);
+      }
+  }
 
 .deck .card.show {
     font-size: 33px;
@@ -81,6 +100,32 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.unmatch {    
+    animation: earthquake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: rotateX(0);
+    cursor: default;    
+    background: red;
+    font-size: 33px;    
+}
+
+@keyframes earthquake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+
+  }
 /*
  * Styles for the Score Panel
  */
@@ -106,4 +151,11 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.swal2-container {
+    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+    width:100%;
+    height: 100%;
+    
 }
