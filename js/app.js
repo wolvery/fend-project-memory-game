@@ -126,11 +126,11 @@ let Game = class {
 
                 previousCardSelected.resetCard();
                 card.resetCard();
-                if(this.moves % 8 === 0){                    
-                    // reduce stars when perfomance is not good
-                    this.stars -= 1;
-                }
                 if (this.stars > 0){
+                    if(this.moves % 8 === 0){                    
+                        // reduce stars when perfomance is not good
+                        this.stars -= 1;
+                    }               
                     $("ul.stars li i.fa.fa-star:last").addClass("fa-star-o");
                     $("ul.stars li i.fa.fa-star:last").removeClass("fa-star");                
                 }
