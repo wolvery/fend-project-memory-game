@@ -171,8 +171,7 @@ let Game = class {
             swal({
                 title:'Sorry! You lost..',
                 text:'No more stars left.',
-                type:'error',
-                background: '#fff url(../img/geometry2.png)'                
+                type:'error'              
         })
             // end game when stars are out
             this.restart();
@@ -182,8 +181,7 @@ let Game = class {
             swal({
                 title:'Congratulations! You Won!',
                 text:`With ${this.moves} Moves and ${this.stars} stars left`,
-                type:'success',
-                background: '#fff url(../img/geometry2.png)'
+                type:'success'
             })
               this.restart();
         }
