@@ -1,5 +1,8 @@
 # Memory Game Project
 
+Welcome to the game of the year!
+
+
 ## Table of Contents
 
 * [Instructions](#instructions)
@@ -7,14 +10,12 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Do you want to play online? Just access here: https://wolvery.github.io/fend-project-memory-game/
 
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+In case you want to play by yourself in your machine just clone or download this repository and you are going to be able by running the index.html.
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+If you want to contribute feel free! :)
+Some improvements in the roadmap is to provide some stars if the player find two pairs of cards in sequence.
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
