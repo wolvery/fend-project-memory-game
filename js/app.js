@@ -108,7 +108,7 @@ let Game = class {
 
         if (!previousCardSelected) {
             previousCardSelected = card;
-        } else {
+        } else if(previousCardSelected.position !== card.position) {
             //check to see if the two cards match
             if (previousCardSelected.figure === card.figure) {
 
@@ -123,16 +123,15 @@ let Game = class {
                 }
             } else {
                 //if the cards do not match, remove the cards from the list and hide the card's symbol
-
                 previousCardSelected.resetCard();
-                card.resetCard();
-                if (this.stars > 0){
-                    if(this.moves % 8 === 0){                    
-                        // reduce stars when perfomance is not good
-                        this.stars -= 1;
-                    }               
+                card.resetCard();               
+            }
+            // reduce stars when perfomance is not good            
+            if (this.stars > 0) {
+                if (this.moves % 8 === 0) {
+                    this.stars -= 1;
                     $("ul.stars li i.fa.fa-star:last").addClass("fa-star-o");
-                    $("ul.stars li i.fa.fa-star:last").removeClass("fa-star");                
+                    $("ul.stars li i.fa.fa-star:last").removeClass("fa-star");
                 }
             }
             previousCardSelected = null;
@@ -166,21 +165,21 @@ let Game = class {
 
         if (this.stars === 0) {
             swal({
-                title:'Sorry! You lost..',
-                text:'No more stars left.',
-                type:'error'              
-        })
+                title: 'Sorry! You lost..',
+                text: 'No more stars left.',
+                type: 'error'
+            })
             // end game when stars are out
             this.restart();
 
 
         } else {
             swal({
-                title:'Congratulations! You Won!',
-                text:`With ${this.moves} Moves and ${this.stars} stars left`,
-                type:'success'
+                title: 'Congratulations! You Won!',
+                text: `With ${this.moves} Moves and ${this.stars} stars left`,
+                type: 'success'
             })
-              this.restart();
+            this.restart();
         }
     }
 }
