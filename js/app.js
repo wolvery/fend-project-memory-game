@@ -65,6 +65,7 @@ let Game = class {
         this.moves = 0;
         this.cardMatched = 0;
         this.stars = 3;
+        this.perfomance = 16;
         this.startTime = new Date().getTime();        
         this.init();
     }
@@ -91,6 +92,7 @@ let Game = class {
     init() {
         elements = $(".deck").children();
         this.startTime = new Date().getTime();
+        this.perfomance = 16;
         let contentPage = classFigures.slice().concat(classFigures.slice());
         contentPage = this.shuffle(contentPage);
         let index = 0;
@@ -107,6 +109,15 @@ let Game = class {
         // increment counter of moves
         this.moves += 1;
         $(".moves").text(this.moves);
+          // reduce stars when perfomance is not good            
+          if (this.stars > 0) {
+            if (this.moves % this.perfomance === 0) {
+                this.stars -= 1;
+                this.perfomance = this.perfomance/2;
+                $("ul.stars li i.fa.fa-star:last").addClass("fa-star-o");
+                $("ul.stars li i.fa.fa-star:last").removeClass("fa-star");
+            }
+        }
 
         if (!previousCardSelected) {
             previousCardSelected = card;
@@ -128,14 +139,7 @@ let Game = class {
                 previousCardSelected.resetCard();
                 card.resetCard();
             }
-            // reduce stars when perfomance is not good            
-            if (this.stars > 0) {
-                if (this.moves % 8 === 0) {
-                    this.stars -= 1;
-                    $("ul.stars li i.fa.fa-star:last").addClass("fa-star-o");
-                    $("ul.stars li i.fa.fa-star:last").removeClass("fa-star");
-                }
-            }
+          
             previousCardSelected = null;
 
         }
@@ -149,8 +153,9 @@ let Game = class {
         self.cardMatched = 0;
         $(".moves").text(self.moves);
         let starsDom = $("ul.stars li i.fa");
+        
         for (let starDom of starsDom) {
-            console.log(starDom);
+            
             $(starDom).removeClass("fa-star-o");
             $(starDom).addClass("fa-star");
         }

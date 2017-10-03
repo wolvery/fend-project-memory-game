@@ -8,6 +8,12 @@ Welcome to the game of the year!
 * [Instructions](#instructions)
 * [Contributing](#contributing)
 
+## About
+
+This game was part of the course in Udacity. It has the following dependencies: jquery, font-awesome and sweet-alert.
+It has followed the defined rubric which has the goal to improve the html, js and css skills.
+
+
 ## Instructions
 
 Do you want to play online? Just access here: https://wolvery.github.io/fend-project-memory-game/
