@@ -7,6 +7,7 @@ let previousCardSelected;
 let cards = [];
 let gamer;
 
+
 /*
 * Objects part of this game!
 */
@@ -64,6 +65,7 @@ let Game = class {
         this.moves = 0;
         this.cardMatched = 0;
         this.stars = 3;
+        this.startTime = new Date().getTime();        
         this.init();
     }
     // Shuffle function from http://stackoverflow.com/a/2450976
@@ -88,7 +90,7 @@ let Game = class {
     */
     init() {
         elements = $(".deck").children();
-
+        this.startTime = new Date().getTime();
         let contentPage = classFigures.slice().concat(classFigures.slice());
         contentPage = this.shuffle(contentPage);
         let index = 0;
@@ -141,7 +143,6 @@ let Game = class {
     }
     restart(event) {
         // restart the game function
-
         self = event ? event.data.self : this;
         self.stars = 3;
         self.moves = 0;
@@ -149,6 +150,7 @@ let Game = class {
         $(".moves").text(self.moves);
         let starsDom = $("ul.stars li i.fa");
         for (let starDom of starsDom) {
+            console.log(starDom);
             $(starDom).removeClass("fa-star-o");
             $(starDom).addClass("fa-star");
         }
@@ -162,9 +164,13 @@ let Game = class {
 
     }
     gameOver() {
+        let timeFinished = new Date().getTime();
+        let distance = timeFinished - this.startTime;
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds =  Math.floor((distance % (1000 * 60)) / 1000);
         swal({
             title: 'Congratulations! You Won!',
-            text: `With ${this.moves} Moves and ${this.stars} stars left`,
+            text: `With ${this.moves} Moves and ${this.stars} stars left in ${minutes}:${seconds}`,
             type: 'success'
         })
         this.restart();
@@ -173,6 +179,30 @@ let Game = class {
 
 
 gamer = new Game();
-$(".restart").on("click", { self: gamer }, gamer.restart);
+$(".restart").on("click", { self: gamer }, function(event){
+    swal({
+        title: 'Are you sure?',
+        text: "You are going to lose your progress!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!',
+        cancelButtonText: 'No!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger'
+    }).then(function () {
+        event.data.self.restart();
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+            swal(
+                'Cancelled',
+                'Go back to your Game! :)',
+                'error'
+            )
+        }
+    })});
 //TODO:
 // print game is over
