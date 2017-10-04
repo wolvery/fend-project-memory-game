@@ -153,6 +153,8 @@ let Game = class {
     }
     restart(event) {
         // restart the game function
+        this.eventTimer = null;
+        this.started = false;
         self = event ? event.data.self : this;
         self.stars = 3;
         self.moves = 0;
