@@ -67,6 +67,7 @@ let Game = class {
         this.stars = 3;
         this.perfomance = 24;
         this.startTime = new Date().getTime();
+        this.started = false;
         this.eventTimer = null;
         this.init();
     }
@@ -92,8 +93,7 @@ let Game = class {
     */
     init() {
         elements = $(".deck").children();
-        this.startTime = new Date().getTime();
-        this.eventTimer = setInterval(() => this.updateTimer(), 1000);
+        this.started = true;
         this.perfomance = 24;
         let contentPage = classFigures.slice().concat(classFigures.slice());
         contentPage = this.shuffle(contentPage);
@@ -107,6 +107,11 @@ let Game = class {
 
     }
     loadCard(card) {
+        if (this.started) {
+            this.startTime = new Date().getTime();
+            this.eventTimer = setInterval(() => this.updateTimer(), 1000);
+            this.started = false;
+        }
 
         // increment counter of moves
         this.moves += 1;
@@ -213,7 +218,7 @@ $(".restart").on("click", { self: gamer }, function (event) {
         confirmButtonClass: 'btn btn-success',
         cancelButtonClass: 'btn btn-danger',
         background: '#fff url(https://raw.githubusercontent.com/wolvery/fend-project-memory-game/master/img/geometry2.png)'
-    
+
     }).then(function () {
         event.data.self.restart();
     }, function (dismiss) {
@@ -221,11 +226,11 @@ $(".restart").on("click", { self: gamer }, function (event) {
         // 'close', and 'timer'
         if (dismiss === 'cancel') {
             swal({
-                title:'Cancelled',
-                text:'Go back to your Game! :)',
-                type:'error',
+                title: 'Cancelled',
+                text: 'Go back to your Game! :)',
+                type: 'error',
                 background: '#fff url(https://raw.githubusercontent.com/wolvery/fend-project-memory-game/master/img/geometry2.png)'
-            
+
             })
         }
     })
