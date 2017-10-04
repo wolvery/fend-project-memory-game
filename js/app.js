@@ -153,7 +153,8 @@ let Game = class {
     }
     restart(event) {
         // restart the game function
-        this.eventTimer = null;
+        clearInterval(this.eventTimer);
+        $(".timer").text('00:00');
         this.started = false;
         self = event ? event.data.self : this;
         self.stars = 3;
