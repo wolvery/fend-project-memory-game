@@ -177,7 +177,8 @@ let Game = class {
         swal({
             title: 'Congratulations! You Won!',
             text: `With ${this.moves} Moves and ${this.stars} stars left in ${fixNumber(minutes)}:${fixNumber(seconds)}`,
-            type: 'success'
+            type: 'success',
+            background: '#fff url(https://raw.githubusercontent.com/wolvery/fend-project-memory-game/master/img/geometry2.png)'
         })
         this.restart();
     }
@@ -210,18 +211,22 @@ $(".restart").on("click", { self: gamer }, function (event) {
         confirmButtonText: 'Yes!',
         cancelButtonText: 'No!',
         confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger'
+        cancelButtonClass: 'btn btn-danger',
+        background: '#fff url(https://raw.githubusercontent.com/wolvery/fend-project-memory-game/master/img/geometry2.png)'
+    
     }).then(function () {
         event.data.self.restart();
     }, function (dismiss) {
         // dismiss can be 'cancel', 'overlay',
         // 'close', and 'timer'
         if (dismiss === 'cancel') {
-            swal(
-                'Cancelled',
-                'Go back to your Game! :)',
-                'error'
-            )
+            swal({
+                title:'Cancelled',
+                text:'Go back to your Game! :)',
+                type:'error',
+                background: '#fff url(https://raw.githubusercontent.com/wolvery/fend-project-memory-game/master/img/geometry2.png)'
+            
+            })
         }
     })
 });
