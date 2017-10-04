@@ -65,8 +65,9 @@ let Game = class {
         this.moves = 0;
         this.cardMatched = 0;
         this.stars = 3;
-        this.perfomance = 16;
-        this.startTime = new Date().getTime();        
+        this.perfomance = 24;
+        this.startTime = new Date().getTime();
+        this.eventTimer = null;
         this.init();
     }
     // Shuffle function from http://stackoverflow.com/a/2450976
@@ -92,7 +93,8 @@ let Game = class {
     init() {
         elements = $(".deck").children();
         this.startTime = new Date().getTime();
-        this.perfomance = 16;
+        this.eventTimer = setInterval(() => this.updateTimer(), 1000);
+        this.perfomance = 24;
         let contentPage = classFigures.slice().concat(classFigures.slice());
         contentPage = this.shuffle(contentPage);
         let index = 0;
@@ -109,11 +111,11 @@ let Game = class {
         // increment counter of moves
         this.moves += 1;
         $(".moves").text(this.moves);
-          // reduce stars when perfomance is not good            
-          if (this.stars > 0) {
+        // reduce stars when perfomance is not good            
+        if (this.stars > 0) {
             if (this.moves % this.perfomance === 0) {
                 this.stars -= 1;
-                this.perfomance = this.perfomance/2;
+                this.perfomance = this.perfomance / 2;
                 $("ul.stars li i.fa.fa-star:last").addClass("fa-star-o");
                 $("ul.stars li i.fa.fa-star:last").removeClass("fa-star");
             }
@@ -124,7 +126,6 @@ let Game = class {
         } else if (previousCardSelected.position !== card.position) {
             //check to see if the two cards match
             if (previousCardSelected.figure === card.figure) {
-
                 //if the cards do match, lock the cards in the open position
                 previousCardSelected.matched();
                 card.matched();
@@ -139,7 +140,7 @@ let Game = class {
                 previousCardSelected.resetCard();
                 card.resetCard();
             }
-          
+
             previousCardSelected = null;
 
         }
@@ -153,9 +154,9 @@ let Game = class {
         self.cardMatched = 0;
         $(".moves").text(self.moves);
         let starsDom = $("ul.stars li i.fa");
-        
+
         for (let starDom of starsDom) {
-            
+
             $(starDom).removeClass("fa-star-o");
             $(starDom).addClass("fa-star");
         }
@@ -172,19 +173,33 @@ let Game = class {
         let timeFinished = new Date().getTime();
         let distance = timeFinished - this.startTime;
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds =  Math.floor((distance % (1000 * 60)) / 1000);
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
         swal({
             title: 'Congratulations! You Won!',
-            text: `With ${this.moves} Moves and ${this.stars} stars left in ${minutes}:${seconds}`,
+            text: `With ${this.moves} Moves and ${this.stars} stars left in ${fixNumber(minutes)}:${fixNumber(seconds)}`,
             type: 'success'
         })
         this.restart();
     }
+    updateTimer() {
+        let timeFinished = new Date().getTime();
+        let distance = timeFinished - this.startTime;
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        $(".timer").text(`${fixNumber(minutes)}:${fixNumber(seconds)}`);
+    }
+
 }
 
 
+
+
+let fixNumber = function (number) {
+    let s = String(number);
+    return (s.length < 2) ? "0" + number : number;
+}
 gamer = new Game();
-$(".restart").on("click", { self: gamer }, function(event){
+$(".restart").on("click", { self: gamer }, function (event) {
     swal({
         title: 'Are you sure?',
         text: "You are going to lose your progress!",
@@ -208,6 +223,7 @@ $(".restart").on("click", { self: gamer }, function(event){
                 'error'
             )
         }
-    })});
+    })
+});
 //TODO:
 // print game is over

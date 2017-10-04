@@ -148,6 +148,12 @@ h1 {
     display: inline-block;
 }
 
+.score-panel .timer {    
+    padding-left: 30px;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
 .score-panel .restart {
     float: right;
     cursor: pointer;
